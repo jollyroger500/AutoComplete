@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://jqueryui.com/resources/demos/autocomplete/categories.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>jQuery UI Autocomplete - Categories</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="jquery-1.10.2.js"></script>
+	<script src="jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+	<style>
+	.ui-autocomplete-category {
+		font-weight: bold;
+		padding: .2em .4em;
+		margin: .8em 0 .2em;
+		line-height: 1.5;
+	}
+	</style>
+	<script>
+	$.widget( "custom.catcomplete", $.ui.autocomplete, {
+		_create: function() {
+			this._super();
+			this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+		},
+		_renderMenu: function( ul, items ) {
+			var that = this,
+				currentCategory = "";
+			$.each( items, function( index, item ) {
+				var li;
+				if ( item.category != currentCategory ) {
+					ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+					currentCategory = item.category;
+				}
+				li = that._renderItemData( ul, item );
+				if ( item.category ) {
+					li.attr( "aria-label", item.category + " : " + item.label );
+				}
+			});
+		}
+	});
+	</script>
+	<script>
+	$(function() {
+		var data = [
+			{ label: "anders", category: "" },
+			{ label: "andreas", category: "" },
+			{ label: "antal", category: "" },
+			{ label: "annhhx10", category: "Products" },
+			{ label: "annk K12", category: "Products" },
+			{ label: "annttop C13", category: "Products" },
+			{ label: "anders andersson", category: "People" },
+			{ label: "andreas andersson", category: "People" },
+			{ label: "andreas johnson", category: "People" }
+		];
+
+		$( "#search" ).catcomplete({
+			delay: 0,
+			source: data
+		});
+	});
+	</script>
+</head>
+<body>
+
+<label for="search">Search: </label>
+<input id="search" class="ui-autocomplete-input" autocomplete="off">
+
+
+
+
+<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0" style="display: none; top: 27px; left: 44.5px; width: 129px;"><li class="ui-menu-item" id="ui-id-20" tabindex="-1">anders</li><li class="ui-menu-item" id="ui-id-21" tabindex="-1">andreas</li><li class="ui-menu-item" id="ui-id-22" tabindex="-1">antal</li><li class="ui-autocomplete-category">Products</li><li aria-label="Products : annhhx10" class="ui-menu-item" id="ui-id-23" tabindex="-1">annhhx10</li><li aria-label="Products : annk K12" class="ui-menu-item" id="ui-id-24" tabindex="-1">annk K12</li><li aria-label="Products : annttop C13" class="ui-menu-item" id="ui-id-25" tabindex="-1">annttop C13</li><li class="ui-autocomplete-category">People</li><li aria-label="People : anders andersson" class="ui-menu-item" id="ui-id-26" tabindex="-1">anders andersson</li><li aria-label="People : andreas andersson" class="ui-menu-item" id="ui-id-27" tabindex="-1">andreas andersson</li><li aria-label="People : andreas johnson" class="ui-menu-item" id="ui-id-28" tabindex="-1">andreas johnson</li></ul><span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"><div style="display: none;">9 results are available, use up and down arrow keys to navigate.</div><div style="display: none;">No search results.</div><div style="display: none;">9 results are available, use up and down arrow keys to navigate.</div><div style="display: none;">anders</div><div style="display: none;">9 results are available, use up and down arrow keys to navigate.</div><div style="display: none;">anders</div><div>andreas</div></span></body></html>
